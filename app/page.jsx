@@ -1,17 +1,27 @@
-import Image from "next/image";
+"use client";
+import { useEffect, useState } from "react";
 
-export default function Home() {
+import Comingsoon from "@/components/Comingsoon";
+
+const Home = () => {
+  const [headerActive, setHeaderActive] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setHeaderActive(window.scrollY > 200);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+  console.log(headerActive);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <video
-        className="max-w-full max-h-[80vh] object-contain"
-        autoPlay
-        loop
-        muted
-      >
-        <source src="/Asylkreis_Coming_Soon.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+    <div className="bg-gray-50">
+      <Comingsoon />
     </div>
   );
-}
+};
+
+export default Home;
